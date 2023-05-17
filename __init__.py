@@ -131,6 +131,7 @@ def observe_folders(
     use_tqdm: int | bool = 0,
     sleep_between_scans: int = 1,
     file_mb_limit: int | float = 100,
+    ignore_already_copied: int | bool = 1,
 ) -> pd.DataFrame:
     r"""
     The observe_folders function is useful for observing and analyzing folders, with various operations performed on the files within those folders. It offers several features that can be helpful in different scenarios.
@@ -207,6 +208,7 @@ def observe_folders(
         use_tqdm (int | bool, optional): Flag to use tqdm progress bar. Defaults to 0.
         sleep_between_scans (int, optional): Sleep duration between scans (in seconds). Defaults to 1.
         file_mb_limit (int | float, optional): Maximum file size limit (in MB). Defaults to 100.
+        ignore_already_copied (int | bool, optional): Don't copy files with the same size and modified date again.
 
     Returns:
         pd.DataFrame: Dataframe containing the results of the folder observation.
@@ -301,8 +303,8 @@ def observe_folders(
                 dframetemp = dframetemp.loc[
                     ~dframetemp.aa_name.str.contains(r"^[\s.]*$")
                 ]
-                if dframetemp.empty:
-                    if condict[q] == -1:
+                if dframetemp.empty or not ignore_already_copied:
+                    if condict[q] == -1 or not ignore_already_copied:
                         dframetemp = copyconfig.folders2scan_dict[q][-1].copy()
                         condict[q] += 1
                     else:

@@ -45,6 +45,7 @@ df = observe_folders(
     use_tqdm=1,
     sleep_between_scans=1,
     file_mb_limit=50,
+    ignore_already_copied=1,
 )
 In this example, you import the observe_folders function from the folderobserver module. Then, you call the function with various parameters to configure its behavior. The function returns a DataFrame (df) containing the observed and processed data.
 ```
@@ -80,6 +81,7 @@ overwrite: 1
 use_tqdm: 1
 sleep_between_scans: 1
 file_mb_limit: 50
+ignore_already_copied: 1
 
 
 In this example, the configuration file (config.ini) is structured using INI format. It consists of sections enclosed in square brackets ([]), followed by key-value pairs. The folders section contains the following key-value pairs:
@@ -98,6 +100,7 @@ overwrite: Determines whether to overwrite existing files. Set to 1 (True) in th
 use_tqdm: Determines whether to use tqdm progress bar. Set to 1 (True) in this example.
 sleep_between_scans: Specifies the sleep duration between scans (in seconds). In this example, it is set to 1.
 file_mb_limit: Specifies the maximum file size limit in megabytes (MB). In this example, it is set to 50.
+
 You can modify the values in the configuration file according to your specific requirements before executing the observe_folders function through the CLI.
 
 Please note that the INI configuration file format is commonly used for storing configuration settings and can be easily edited using a text editor.
